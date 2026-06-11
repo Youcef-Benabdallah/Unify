@@ -1,10 +1,13 @@
 {
-  "name": "unify",
+  "name": "@youcef-dev/unifyui",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.6.7",
-  "description": "Static site framework with .uix components, neu-brutalism design, Lucide icons, reactive state, and SPA routing",
+  "description": "Neo-brutalism .uix component framework for modern web applications",
   "main": "src/index.js",
   "bin": {
-    "unify": "./bin/unify.js"
+    "unify": "bin/unify.js"
   },
   "scripts": {
     "dev": "node bin/unify.js dev",
@@ -14,12 +17,22 @@
   "author": "Youcef Benabdallah",
   "license": "MIT",
   "keywords": [
-    "unify", "uix", "static-site", "framework", "brutalism", "neu-brutalism",
-    "ssg", "spa", "reactive", "file-based-routing", "lucide", "no-build-step"
+    "unify",
+    "uix",
+    "static-site",
+    "framework",
+    "brutalism",
+    "neu-brutalism",
+    "ssg",
+    "spa",
+    "reactive",
+    "file-based-routing",
+    "lucide",
+    "no-build-step"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Youcef-Benabdallah/unify"
+    "url": "git+https://github.com/Youcef-Benabdallah/unify.git"
   },
   "files": [
     "bin/",

@@ -1,0 +1,113 @@
+{
+  "Page scaffold": {
+    "prefix": "page",
+    "body": [
+      "Meta {",
+      "  title: \"${1:Page Title}\"",
+      "  theme: ${2:light}",
+      "}",
+      "",
+      "Page {",
+      "  ${3}",
+      "}"
+    ],
+    "description": "Create a new UIX page"
+  },
+  "Button": {
+    "prefix": "button",
+    "body": "Button { variant: ${1|primary,secondary,flat,ghost|}; ${2} }$0",
+    "description": "Button component"
+  },
+  "Card": {
+    "prefix": "card",
+    "body": [
+      "Card {",
+      "  ${1}",
+      "}"
+    ],
+    "description": "Card component"
+  },
+  "Nav": {
+    "prefix": "nav",
+    "body": [
+      "Nav {",
+      "  brand: \"${1:Brand}\"",
+      "  Link { href: \"/\"; text: \"${2:Home}\" }",
+      "  ${3}",
+      "}"
+    ],
+    "description": "Navigation bar component"
+  },
+  "Link": {
+    "prefix": "link",
+    "body": "Link { href: \"${1:/}\"; text: \"${2:Link}\" }$0",
+    "description": "Router link component"
+  },
+  "Input": {
+    "prefix": "input",
+    "body": "Input { type: ${1:text}; placeholder: \"${2}\"; ${3} }$0",
+    "description": "Form input component"
+  },
+  "Table": {
+    "prefix": "table",
+    "body": [
+      "Table {",
+      "  Thead { Tr { Th { text: \"${1:Column}\" } } }",
+      "  Tbody {",
+      "    Tr { Td { text: \"${2:Value}\" } }",
+      "  }",
+      "}"
+    ],
+    "description": "Table component"
+  },
+  "ThemeToggle": {
+    "prefix": "theme",
+    "body": "ThemeToggle$0",
+    "description": "Dark/light theme toggle"
+  },
+  "LanguageToggle": {
+    "prefix": "lang",
+    "body": "LanguageToggle$0",
+    "description": "Language switcher component"
+  },
+  "Meta block": {
+    "prefix": "meta",
+    "body": [
+      "Meta {",
+      "  title: \"${1:Title}\"",
+      "  theme: ${2:light}",
+      "}"
+    ],
+    "description": "Page metadata block"
+  },
+  "Grid": {
+    "prefix": "grid",
+    "body": "Grid { cols: ${1:3}; gap: ${2:1rem}; ${3} }$0",
+    "description": "Grid layout component"
+  },
+  "Flex": {
+    "prefix": "flex",
+    "body": "Flex { direction: ${1|row,column|}; gap: ${2:1rem}; ${3} }$0",
+    "description": "Flex layout component"
+  },
+  "Alert": {
+    "prefix": "alert",
+    "body": "Alert { variant: ${1|info,success,warning,danger|}; \"${2:Message}\" }$0",
+    "description": "Alert component"
+  },
+  "Badge": {
+    "prefix": "badge",
+    "body": "Badge { variant: ${1|primary,secondary|}; \"${2:Label}\" }$0",
+    "description": "Badge component"
+  },
+  "Modal": {
+    "prefix": "modal",
+    "body": [
+      "Modal {",
+      "  title: \"${1:Title}\"",
+      "  ${2}",
+      "}"
+    ],
+    "description": "Modal dialog component"
+  }
+}

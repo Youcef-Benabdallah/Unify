@@ -1,0 +1,49 @@
+{
+  "name": "vscode-uix",
+  "displayName": "UIX Language Support",
+  "description": "Syntax highlighting, snippets, and language support for .uix component files",
+  "version": "0.1.0",
+  "publisher": "youcef-dev",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "uix",
+    "unify",
+    "component",
+    "framework"
+  ],
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Youcef-Benabdallah/Unify"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "uix",
+        "aliases": ["UIX", "uix"],
+        "extensions": [".uix"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "uix",
+        "scopeName": "source.uix",
+        "path": "./syntaxes/uix.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "uix",
+        "path": "./snippets/uix.json"
+      }
+    ]
+  }
+}

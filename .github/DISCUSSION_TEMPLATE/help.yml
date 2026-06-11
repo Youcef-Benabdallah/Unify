@@ -1,0 +1,19 @@
+title: "Help / Support"
+labels: ["question"]
+body:
+  - type: textarea
+    attributes:
+      label: What are you trying to do?
+      description: Describe the problem you're facing with Unify or UIX.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Code snippet
+      description: Share a minimal .uix file that reproduces the issue.
+      render: uix
+  - type: textarea
+    attributes:
+      label: Error output
+      description: Paste any terminal or browser errors here.
+      render: text

@@ -1,0 +1,19 @@
+title: "Feature Request / Idea"
+labels: ["enhancement"]
+body:
+  - type: textarea
+    attributes:
+      label: Problem
+      description: What's missing or what could be better?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed solution
+      description: Describe how you think it should work.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternative approaches
+      description: Any other ways you've considered solving this?

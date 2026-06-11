@@ -1,0 +1,17 @@
+title: "Show and Tell"
+labels: ["showcase"]
+body:
+  - type: textarea
+    attributes:
+      label: What did you build?
+      description: Share your project built with Unify!
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: URL
+      description: Link to your project (GitHub, live demo, etc.)
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: Add screenshots or recordings
