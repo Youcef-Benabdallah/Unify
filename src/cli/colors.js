@@ -65,35 +65,25 @@ function logo() {
   const d = colors.dim
   const B = '\u2588'
   const W = 44
-  const V = '\u2502'
+  const H = '\u2500'
 
-  function line(content) {
-    const len = content.replace(/\x1b\[[0-9;]*m/g, '').length
-    return '  ' + l(V) + '  ' + content + ' '.repeat(W - len) + '  ' + l(V)
-  }
-  function sep() {
-    return '  ' + l(V) + ' ' + l('\u2500'.repeat(W + 2)) + ' ' + l(V)
-  }
-
-  const U = [B+B+'   '+B+B, B+B+'   '+B+B, B+B+'   '+B+B, B+B+'   '+B+B, ' '+B+B+B+B+B+' ']
-  const N = [B+B+B+'  '+B+B, B+B+B+B+' '+B+B, B+B+' '+B+B+B+B, B+B+'  '+B+B+B, B+B+'   '+B+B]
-  const I = [B+B+B+B+B+B+B, '  '+B+B+B+'  ', '  '+B+B+B+'  ', '  '+B+B+B+'  ', B+B+B+B+B+B+B]
-  const F = [B+B+B+B+B+B+B, B+B+B+'    ', B+B+B+B+B+B+B, B+B+B+'    ', B+B+B+'    ']
-  const Y = [B+B+'   '+B+B, B+B+'   '+B+B, ' '+B+B+' '+B+B+' ', '  '+B+B+B+'  ', '  '+B+B+B+'  ']
+  function pad(n) { return ' '.repeat(n) }
 
   console.log()
-  console.log('  ' + l('\u256D') + l('\u2500'.repeat(W + 4)) + l('\u256E'))
-  for (let r = 0; r < 5; r++) {
-    console.log(line(l(U[r]) + ' ' + y(N[r]) + ' ' + g(I[r]) + ' ' + p(F[r]) + ' ' + b(Y[r])))
-  }
-  console.log(sep())
-  console.log(line(d('v-0.6.7')))
-  console.log(line(d('Unify')))
-  console.log(line(d('Your Framework that use')))
-  console.log(line(d('neu-brutalism design')))
-  console.log(sep())
-  console.log(line(d('by Youcef Benabdallah')))
-  console.log('  ' + l('\u2570') + l('\u2500'.repeat(W + 4)) + l('\u256F'))
+  console.log('  ' + l('\u256D') + l(H.repeat(W + 4)) + l('\u256E'))
+  console.log('  ' + l('\u2502') + '  ' + l(B+B+'   '+B+B) + ' ' + y(B+B+B+'  '+B+B) + ' ' + g(B+B+B+B+B+B+B) + ' ' + p(B+B+B+B+B+B+B) + ' ' + b(B+B+'   '+B+B) + pad(5) + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + l(B+B+'   '+B+B) + ' ' + y(B+B+B+B+' '+B+B) + ' ' + g('  '+B+B+B+'  ') + ' ' + p(B+B+B+'    ') + ' ' + b(B+B+'   '+B+B) + pad(5) + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + l(B+B+'   '+B+B) + ' ' + y(B+B+' '+B+B+B+B) + ' ' + g('  '+B+B+B+'  ') + ' ' + p(B+B+B+B+B+B+B) + ' ' + b(' '+B+B+' '+B+B+' ') + pad(5) + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + l(B+B+'   '+B+B) + ' ' + y(B+B+'  '+B+B+B) + ' ' + g('  '+B+B+B+'  ') + ' ' + p(B+B+B+'    ') + ' ' + b('  '+B+B+B+'  ') + pad(5) + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + l(' '+B+B+B+B+B+' ') + ' ' + y(B+B+'   '+B+B) + ' ' + g(B+B+B+B+B+B+B) + ' ' + p(B+B+B+'    ') + ' ' + b('  '+B+B+B+'  ') + pad(5) + l('\u2502'))
+  console.log('  ' + l('\u2502') + ' ' + H.repeat(W + 2) + ' ' + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + d('v-0.6.7') + pad(W - 7) + '  ' + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + d('Unify') + pad(W - 5) + '  ' + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + d('Your Framework that use') + pad(W - 24) + '  ' + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + d('neu-brutalism design') + pad(W - 20) + '  ' + l('\u2502'))
+  console.log('  ' + l('\u2502') + ' ' + H.repeat(W + 2) + ' ' + l('\u2502'))
+  console.log('  ' + l('\u2502') + '  ' + d('by Youcef Benabdallah') + pad(W - 22) + '  ' + l('\u2502'))
+  console.log('  ' + l('\u2570') + l(H.repeat(W + 4)) + l('\u256F'))
 }
 
 function spinStart(text) {
