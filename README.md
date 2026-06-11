@@ -171,6 +171,7 @@ Navigation uses client-side SPA routing — no full page loads.
 
 ## Community
 
+- **Discord** -- https://discord.gg/ZS6xcyh6
 - **GitHub Discussions** -- https://github.com/Youcef-Benabdallah/Unify/discussions
 - **Issues** -- https://github.com/Youcef-Benabdallah/Unify/issues
 - **VS Code Extension** -- `vscode-uix/` in the repo. Syntax highlighting and snippets for .uix files. Install by copying the folder to `~/.vscode/extensions/` or publishing to the marketplace.
