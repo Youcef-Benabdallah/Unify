@@ -63,32 +63,37 @@ function logo() {
   const p = colors.pastelPink
   const b = colors.pastelBlue
   const d = colors.dim
-  const W = 36
-  const L = '\u2551'
-  const H = '\u2550'
-  function box(content) {
-    return '  ' + l(L) + '  ' + content + ' '.repeat(Math.max(0, W - visibleLen(content))) + '  ' + l(L)
+  const B = '\u2588'
+  const W = 44
+  const V = '\u2502'
+
+  function line(content) {
+    const len = content.replace(/\x1b\[[0-9;]*m/g, '').length
+    return '  ' + l(V) + '  ' + content + ' '.repeat(W - len) + '  ' + l(V)
   }
-  function visibleLen(s) {
-    return s.replace(/\x1b\[[0-9;]*m/g, '').length
+  function sep() {
+    return '  ' + l(V) + ' ' + l('\u2500'.repeat(W + 2)) + ' ' + l(V)
   }
-  function empty() {
-    return '  ' + l(L) + ' '.repeat(W + 4) + l(L)
-  }
+
+  const U = [B+B+'   '+B+B, B+B+'   '+B+B, B+B+'   '+B+B, B+B+'   '+B+B, ' '+B+B+B+B+B+' ']
+  const N = [B+B+B+'  '+B+B, B+B+B+B+' '+B+B, B+B+' '+B+B+B+B, B+B+'  '+B+B+B, B+B+'   '+B+B]
+  const I = [B+B+B+B+B+B+B, '  '+B+B+B+'  ', '  '+B+B+B+'  ', '  '+B+B+B+'  ', B+B+B+B+B+B+B]
+  const F = [B+B+B+B+B+B+B, B+B+B+'    ', B+B+B+B+B+B+B, B+B+B+'    ', B+B+B+'    ']
+  const Y = [B+B+'   '+B+B, B+B+'   '+B+B, ' '+B+B+' '+B+B+' ', '  '+B+B+B+'  ', '  '+B+B+B+'  ']
+
   console.log()
-  console.log('  ' + l('\u2554') + l(H.repeat(W + 4)) + l('\u2557'))
-  console.log(box(l('\u2588   \u2588') + ' ' + y('\u2588\u2588  \u2588') + ' ' + g(' \u2588\u2588\u2588 ') + ' ' + p('\u2588\u2588\u2588\u2588\u2588') + ' ' + b('\u2588   \u2588')))
-  console.log(box(l('\u2588   \u2588') + ' ' + y('\u2588 \u2588 \u2588') + ' ' + g('  \u2588  ') + ' ' + p('\u2588    ') + ' ' + b('\u2588   \u2588')))
-  console.log(box(l('\u2588   \u2588') + ' ' + y('\u2588  \u2588\u2588') + ' ' + g('  \u2588  ') + ' ' + p('\u2588\u2588\u2588\u2588 ') + ' ' + b('\u2588 \u2588 \u2588')))
-  console.log(box(l('\u2588   \u2588') + ' ' + y('\u2588   \u2588') + ' ' + g('  \u2588  ') + ' ' + p('\u2588    ') + ' ' + b(' \u2588 \u2588 ')))
-  console.log(box(l(' \u2588\u2588\u2588 ') + ' ' + y('\u2588   \u2588') + ' ' + g(' \u2588\u2588\u2588 ') + ' ' + p('\u2588    ') + ' ' + b('  \u2588  ')))
-  console.log(empty())
-  console.log(box(d('v-0.6.7')))
-  console.log(box(d('Unify')))
-  console.log(box(d('Your Framework that use')))
-  console.log(box(d('neu-brutalism design')))
-  console.log(box(d('by Youcef Benabdallah')))
-  console.log('  ' + l('\u255a') + l(H.repeat(W + 4)) + l('\u255d'))
+  console.log('  ' + l('\u256D') + l('\u2500'.repeat(W + 4)) + l('\u256E'))
+  for (let r = 0; r < 5; r++) {
+    console.log(line(l(U[r]) + ' ' + y(N[r]) + ' ' + g(I[r]) + ' ' + p(F[r]) + ' ' + b(Y[r])))
+  }
+  console.log(sep())
+  console.log(line(d('v-0.6.7')))
+  console.log(line(d('Unify')))
+  console.log(line(d('Your Framework that use')))
+  console.log(line(d('neu-brutalism design')))
+  console.log(sep())
+  console.log(line(d('by Youcef Benabdallah')))
+  console.log('  ' + l('\u2570') + l('\u2500'.repeat(W + 4)) + l('\u256F'))
 }
 
 function spinStart(text) {
