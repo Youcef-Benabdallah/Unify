@@ -57,33 +57,28 @@ function info(msg) {
 }
 
 function logo() {
-  const l = colors.pastelLavender
-  const y = colors.pastelYellow
-  const g = colors.pastelGreen
-  const p = colors.pastelPink
-  const b = colors.pastelBlue
+  const c = colors.pastelLavender
   const d = colors.dim
-  const B = '\u2588'
-  const W = 44
-  const H = '\u2500'
-
-  function pad(n) { return ' '.repeat(n) }
-
   console.log()
-  console.log('  ' + l('\u256D') + l(H.repeat(W + 4)) + l('\u256E'))
-  console.log('  ' + l('\u2502') + '  ' + l(B+B+'   '+B+B) + ' ' + y(B+B+B+'  '+B+B) + ' ' + g(B+B+B+B+B+B+B) + ' ' + p(B+B+B+B+B+B+B) + ' ' + b(B+B+'   '+B+B) + pad(5) + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + l(B+B+'   '+B+B) + ' ' + y(B+B+B+B+' '+B+B) + ' ' + g('  '+B+B+B+'  ') + ' ' + p(B+B+B+'    ') + ' ' + b(B+B+'   '+B+B) + pad(5) + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + l(B+B+'   '+B+B) + ' ' + y(B+B+' '+B+B+B+B) + ' ' + g('  '+B+B+B+'  ') + ' ' + p(B+B+B+B+B+B+B) + ' ' + b(' '+B+B+' '+B+B+' ') + pad(5) + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + l(B+B+'   '+B+B) + ' ' + y(B+B+'  '+B+B+B) + ' ' + g('  '+B+B+B+'  ') + ' ' + p(B+B+B+'    ') + ' ' + b('  '+B+B+B+'  ') + pad(5) + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + l(' '+B+B+B+B+B+' ') + ' ' + y(B+B+'   '+B+B) + ' ' + g(B+B+B+B+B+B+B) + ' ' + p(B+B+B+'    ') + ' ' + b('  '+B+B+B+'  ') + pad(5) + l('\u2502'))
-  console.log('  ' + l('\u2502') + ' ' + H.repeat(W + 2) + ' ' + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + d('v-0.6.7') + pad(W - 7) + '  ' + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + d('Unify') + pad(W - 5) + '  ' + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + d('Your Framework that use') + pad(W - 24) + '  ' + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + d('neu-brutalism design') + pad(W - 20) + '  ' + l('\u2502'))
-  console.log('  ' + l('\u2502') + ' ' + H.repeat(W + 2) + ' ' + l('\u2502'))
-  console.log('  ' + l('\u2502') + '  ' + d('by Youcef Benabdallah') + pad(W - 22) + '  ' + l('\u2502'))
-  console.log('  ' + l('\u2570') + l(H.repeat(W + 4)) + l('\u256F'))
+  console.log(c(
+`                            Unify Framework
+                                v-0.6.7
+
+  ████████████████████████████████████████████████████████████████████████████
+  ██                                                                        ██
+  ██   ██╗   ██╗  ███╗   ██╗  ██╗   ██████╗   ██╗   ██╗                   ██
+  ██   ██║   ██║  ████╗  ██║  ██║   ██╔════╝  ██║   ██║                   ██
+  ██   ██║   ██║  ██╔██╗ ██║  ██║   ██║       ██║   ██║                   ██
+  ██   ██║   ██║  ██║╚██╗██║  ██║   ███████╗  ██║   ██║                   ██
+  ██   ██║   ██║  ██║ ╚████║  ██║   ██╔════╝  ██║   ██║                   ██
+  ██   ╚██████╔╝  ██║  ╚███║  ██║   ╚██████╗  ╚██████╔╝                   ██
+  ██    ╚═════╝   ╚═╝   ╚══╝  ╚═╝    ╚═════╝    ╚═════╝                    ██
+  ██                                                                        ██
+  ████████████████████████████████████████████████████████████████████████████
+
+                 By Youcef Benabdallah . v-0.6.7-Release-01
+`))
+  console.log(d('  Framework that use neu-brutalism design'))
 }
 
 function spinStart(text) {
