@@ -57,23 +57,26 @@ function info(msg) {
 }
 
 function logo() {
-  const l = colors.pastelLavender
-  const y = colors.pastelYellow
-  const g = colors.pastelGreen
-  const p = colors.pastelPink
-  const b = colors.pastelBlue
-  const d = colors.dim
-  const W = 56
-  const H = '\u2500'
-  function line(text) {
-    const len = text.replace(/\x1b\[[0-9;]*m/g, '').length
-    return '  ' + l('\u2502') + '  ' + text + ' '.repeat(Math.max(0, W - len)) + '  ' + l('\u2502')
-  }
   console.log()
-  console.log('  ' + l('\u250C') + l(H.repeat(W + 4)) + l('\u2510'))
-  console.log(line(l('U') + y('n') + g('i') + p('f') + b('y') + d('  v0.6.7  ') + l('Neu-Brutalism .uix Framework')))
-  console.log(line(d('by Youcef Benabdallah   ') + l('https://youcefdev.netlify.app/')))
-  console.log('  ' + l('\u2514') + l(H.repeat(W + 4)) + l('\u2518'))
+  console.log(colors.pastelLavender(
+`                            Unify Framework
+                                v-0.6.7
+
+  █████████████████████████████████████████████████████████████
+  ██                                                         ██
+  ██   ██╗   ██╗  ███╗   ██╗  ██╗   ██████╗  ██╗      ██╗    ██
+  ██   ██║   ██║  ████╗  ██║  ██║   ██╔════╝  ██║    ██║     ██
+  ██   ██║   ██║  ██╔██╗ ██║  ██║   ██║         ██  ██       ██
+  ██   ██║   ██║  ██║╚██╗██║  ██║   ███████╗     ║██║        ██
+  ██   ██║   ██║  ██║ ╚████║  ██║   ██╔════╝     ║██║        ██
+  ██   ╚██████╔╝  ██║  ╚███║  ██║   ██║          ║██║        ██
+  ██    ╚═════╝   ╚═╝   ╚══╝  ╚═╝   ╚═╝          ╚══╝        ██
+  ██                                                         ██
+  █████████████████████████████████████████████████████████████
+
+                 By Youcef Benabdallah . v-0.6.7-Release-01
+`))
+  console.log(colors.dim('  Framework that use neu-brutalism design'))
 }
 
 function spinStart(text) {
