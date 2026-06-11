@@ -969,6 +969,8 @@ function cmdHelp() {
   console.log(`  ${colors.bold('FLAGS')}`)
   console.log(`  ${dimmed('  --ts, --typescript')}    Enable TypeScript`)
   console.log(`  ${dimmed('  --tw, --tailwind')}      Enable Tailwind CSS`)
+  console.log(`  ${dimmed('  --docs, -d')}            Open documentation`)
+  console.log(`  ${dimmed('  --contact-dev')}          Contact the creator`)
   return
 }
 
@@ -992,11 +994,19 @@ function run(args) {
   } else if (cmd === 'conf' || cmd === 'config') {
     const cfg = loadConfig(cwd)
     console.log(JSON.stringify(cfg, null, 2))
+  } else if (cmd === '--docs' || cmd === '-d') {
+    console.log(`
+  ${colors.bold('Documentation')}
+    ${dimmed('Docs:')}  ${colors.pastelBlue('https://unify-docs.netlify.app/')}
+    ${dimmed('Repo:')}  ${colors.pastelBlue('https://github.com/Youcef-Benabdallah/Unify')}
+`)
   } else if (cmd === '--contact-dev') {
     console.log(`
-  Contact:
-    WhatsApp: +213540422155
-    GitHub:   https://github.com/Youcef-Benabdallah
+  ${colors.bold('Contact')}
+    ${dimmed('Name:')}      Youcef Benabdallah
+    ${dimmed('Portfolio:')} ${colors.pastelBlue('https://youcefdev.netlify.app/')}
+    ${dimmed('GitHub:')}    ${colors.pastelBlue('https://github.com/Youcef-Benabdallah')}
+    ${dimmed('WhatsApp:')}  +213540422155
 `)
   } else {
     console.log(fail(`Unknown command: ${cmd}`))
