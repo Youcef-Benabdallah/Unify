@@ -1,0 +1,22 @@
+// App.uix
+Meta {
+  title: "Unify App"
+  theme: light
+  lang: en
+}
+
+App {
+  Nav {
+    brand: "Unify"
+    Link { href: "/"; text: "Home" }
+    Link { href: "/about"; text: "About" }
+    ThemeToggle
+    LanguageToggle
+  }
+
+  Page {
+    Header { text: "Welcome to Unify" }
+    Card { text: "Edit App.uix to see changes instantly." }
+    Button { text: "Get Started"; variant: primary }
+  }
+}

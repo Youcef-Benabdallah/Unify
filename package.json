@@ -1,0 +1,31 @@
+{
+  "name": "unify",
+  "version": "0.1.67",
+  "description": "A static site framework with component-based .uix files, file-based routing, neu-brutalism design system, Lucide icons, Tailwind CSS, and an optional AI assistant.",
+  "main": "src/index.js",
+  "bin": {
+    "unify": "./bin/unify.js"
+  },
+  "scripts": {
+    "dev": "node bin/unify.js dev",
+    "build": "node bin/unify.js build",
+    "start": "node bin/unify.js run"
+  },
+  "author": "Youcef Benabdallah",
+  "license": "MIT",
+  "keywords": [
+    "unify", "uix", "static-site", "framework", "brutalism", "neu-brutalism",
+    "tailwind", "ollama", "ssg", "file-based-routing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Youcef-Benabdallah/unify"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.0",
+    "ws": "^8.16.0"
+  },
+  "optionalDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

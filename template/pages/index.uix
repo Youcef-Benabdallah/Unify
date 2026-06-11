@@ -1,0 +1,14 @@
+// pages/index.uix
+Meta { title: "Home" }
+
+Page {
+  Header { text: "Hello, World!" }
+  Text { content: "Welcome to your Unify app with neu-brutalism design." }
+  Button { text: "Click Me"; variant: primary; click -> handleClick }
+}
+
+script {
+  function handleClick() {
+    alert("Hello from Unify!")
+  }
+}

@@ -1,0 +1,20 @@
+// pages/index.uix — Home page
+Meta { title: "Home" }
+
+Page {
+  Header { text: "Welcome" }
+
+  Card {
+    Header { text: "Getting Started" }
+    Text { content: "Create pages in the pages/ folder." }
+    Text { content: "Each .uix file becomes a route." }
+  }
+
+  Button { text: "Learn More"; click -> showInfo }
+}
+
+script {
+  function showInfo() {
+    alert("Unify v0.1.67")
+  }
+}

@@ -1,0 +1,12 @@
+// pages/about.uix
+Meta { title: "About" }
+
+Page {
+  Header { text: "About Unify" }
+
+  Card {
+    Text { content: "Unify is a static site framework with component-based .uix files." }
+    Text { content: "Includes neu-brutalism UI, theming, i18n, and file-based routing." }
+    Text { content: "Built by Youcef Benabdallah." }
+  }
+}

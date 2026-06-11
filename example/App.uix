@@ -1,0 +1,30 @@
+// App.uix
+Meta {
+  title: "My Unify App"
+  theme: light
+  lang: en
+}
+
+App {
+  Nav {
+    brand: "Unify"
+    Link { href: "/"; text: "Home" }
+    Link { href: "/about"; text: "About" }
+    ThemeToggle
+    LanguageToggle
+  }
+
+  Page {
+    Header { text: "Hello, Unify!" }
+
+    Card { text: "This is a neu-brutalism card." }
+
+    Button { text: "Click me"; variant: primary; click -> sayHi }
+  }
+}
+
+script {
+  function sayHi() {
+    alert("Hello from Unify!")
+  }
+}
