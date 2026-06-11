@@ -1,8 +1,9 @@
 const { parseUix, parseFile } = require('./parser')
 const path = require('path')
+const { generateClientRouterCode } = require('../router/routing')
 
 const UNIFY_TAGS = {
-  // Layout
+  
   App: 'div', Page: 'section', Section: 'section', Container: 'div',
   Grid: 'div', Flex: 'div', Row: 'div', Col: 'div', Stack: 'div',
   Center: 'div', Wrapper: 'div', Main: 'main', Aside: 'aside',
@@ -10,7 +11,7 @@ const UNIFY_TAGS = {
   Sidebar: 'aside', Hero: 'section', Feature: 'div', Div: 'div', Span: 'span',
   Box: 'div', Group: 'div', Cluster: 'div',
 
-  // Typography
+  
   H1: 'h1', H2: 'h2', H3: 'h3', H4: 'h4', H5: 'h5', H6: 'h6',
   Text: 'p', P: 'p', Lead: 'p', Strong: 'strong', Em: 'em',
   Small: 'small', Mark: 'mark', Code: 'code', Pre: 'pre',
@@ -20,14 +21,14 @@ const UNIFY_TAGS = {
   Bdi: 'bdi', Bdo: 'bdo', Rb: 'rb', Rt: 'rt', Rp: 'rp', Rw: 'span',
   Wbr: 'wbr', Br: 'br', Hr: 'hr', Nbsp: 'span',
 
-  // Forms
+  
   Form: 'form', Label: 'label', Input: 'input', Textarea: 'textarea',
   Select: 'select', Option: 'option', Optgroup: 'optgroup',
   Fieldset: 'fieldset', Legend: 'legend', Datalist: 'datalist',
   Button: 'button', Output: 'output', Meter: 'meter', Progress: 'progress',
   Keygen: 'keygen',
 
-  // Data display
+  
   Card: 'div', Table: 'table', Thead: 'thead', Tbody: 'tbody',
   Tfoot: 'tfoot', Tr: 'tr', Th: 'th', Td: 'td', Colgroup: 'colgroup', Col: 'col',
   Caption: 'caption',
@@ -35,40 +36,40 @@ const UNIFY_TAGS = {
   Details: 'details', Summary: 'summary', Dialog: 'dialog',
   Badge: 'span', Avatar: 'div', Chip: 'span',
 
-  // Feedback
+  
   Alert: 'div', Toast: 'div', Modal: 'div', Tooltip: 'div',
   Popover: 'div', Spinner: 'div', Skeleton: 'div', ProgressBar: 'div',
 
-  // Navigation
+  
   Link: 'a', A: 'a', Breadcrumb: 'nav', Pagination: 'nav',
   Tabs: 'div', Tab: 'button', TabPanel: 'div',
   Menu: 'nav', Menuitem: 'a', Dropdown: 'div',
 
-  // Interactive
+  
   FloatingButton: 'button', BackToTop: 'button',
   Accordion: 'div', AccordionItem: 'details',
   Carousel: 'div', CarouselItem: 'div',
 
-  // Media
+  
   Image: 'img', Img: 'img', Figure: 'figure', Figcaption: 'figcaption',
   Video: 'video', Audio: 'audio', Iframe: 'iframe',
   Icon: 'span', Svg: 'div', Picture: 'picture', Source: 'source',
   Track: 'track', Canvas: 'canvas', Map: 'map', Area: 'area',
 
-  // Semantic
+  
   Address: 'address', Time: 'time', Data: 'data',
   Ruby: 'ruby', Rt: 'rt', Rp: 'rp',
 
-  // Table variants
+  
   Td: 'td', Th: 'th', Tr: 'tr', Thead: 'thead', Tbody: 'tbody', Tfoot: 'tfoot',
 
-  // Embedded
+  
   Embed: 'embed', Object: 'object', Param: 'param',
 
-  // Scripting
+  
   Script: 'script', Noscript: 'noscript', Template: 'template', Slot: 'slot',
 
-  // Utility
+  
   Spacer: 'div', Divider: 'hr',
   Html: 'div', Head: 'div', Body: 'div',
   Style: 'style', Meta: 'meta', Title: 'title',
@@ -85,7 +86,7 @@ const UNIFY_BUILTINS = [
 ]
 
 const NEU_CLASSES = {
-  // Layout
+  
   Page: 'brut-page', Section: 'brut-section', Container: 'brut-container',
   Grid: 'brut-grid', Flex: 'brut-flex', Row: 'brut-row', Col: 'brut-col',
   Stack: 'brut-stack', Center: 'brut-center', Wrapper: 'brut-wrapper',
@@ -93,43 +94,43 @@ const NEU_CLASSES = {
   Hero: 'brut-hero', Feature: 'brut-feature', Box: 'brut-box',
   Aside: 'brut-aside', Article: 'brut-article', Main: 'brut-main',
 
-  // Typography
+  
   H1: 'brut-h1', H2: 'brut-h2', H3: 'brut-h3', H4: 'brut-h4', H5: 'brut-h5', H6: 'brut-h6',
   Text: 'brut-text', P: 'brut-text', Lead: 'brut-lead',
   Strong: 'brut-strong', Em: 'brut-em', Small: 'brut-small', Mark: 'brut-mark',
   Code: 'brut-code', Pre: 'brut-pre', Blockquote: 'brut-blockquote', Kbd: 'brut-kbd',
 
-  // Forms
+  
   Button: 'brut-button', Input: 'brut-input', Textarea: 'brut-textarea',
   Select: 'brut-select', Label: 'brut-label', Fieldset: 'brut-fieldset',
   Legend: 'brut-legend', Output: 'brut-output', Progress: 'brut-progress',
   Meter: 'brut-meter',
 
-  // Data display
+  
   Table: 'brut-table', Badge: 'brut-badge', Avatar: 'brut-avatar',
   Chip: 'brut-chip', Details: 'brut-details', Summary: 'brut-summary',
   List: 'brut-list', Ul: 'brut-list', Ol: 'brut-list', Dl: 'brut-list',
 
-  // Feedback
+  
   Alert: 'brut-alert', Toast: 'brut-toast', Modal: 'brut-modal',
   Tooltip: 'brut-tooltip', Popover: 'brut-popover', Spinner: 'brut-spinner',
   Skeleton: 'brut-skeleton', ProgressBar: 'brut-progress-bar',
 
-  // Navigation
+  
   Link: 'brut-link', A: 'brut-link', Breadcrumb: 'brut-breadcrumb',
   Pagination: 'brut-pagination', Tabs: 'brut-tabs', Tab: 'brut-tab',
   TabPanel: 'brut-tab-panel', Menu: 'brut-menu', Dropdown: 'brut-dropdown',
 
-  // Interactive
+  
   FloatingButton: 'brut-fab', BackToTop: 'brut-back-to-top',
   Accordion: 'brut-accordion', Carousel: 'brut-carousel',
 
-  // Media
+  
   Image: 'brut-image', Img: 'brut-image', Figure: 'brut-figure',
   Video: 'brut-video', Iframe: 'brut-iframe', Icon: 'brut-icon',
   Audio: 'brut-audio', Canvas: 'brut-canvas',
 
-  // Utility
+  
   Spacer: 'brut-spacer', Divider: 'brut-divider', Hr: 'brut-divider',
   Kbd: 'brut-kbd', Code: 'brut-code', Pre: 'brut-pre'
 }
@@ -438,7 +439,13 @@ function compileBuiltin(rawTag, node, indent) {
     case 'Form': {
       const formId = node.props.id?.value || node.props.name?.value || 'form'
       const rulesRaw = node.props.rules?.value || null
-      return `${indent}unify.createForm(document.querySelector('#${formId}'), ${rulesRaw ? JSON.stringify(rulesRaw) : '{}'}, { showErrors: true })\n`
+      const childrenCode = (node.children || [])
+        .map(c => compileAST(c, { indent: indent + 1 }))
+        .filter(Boolean)
+        .join(',\n')
+      const rulesCode = rulesRaw ? JSON.stringify(rulesRaw) : '{}'
+      const submit = node.props.submit?.value ? `onSubmit:${node.props.submit.value}` : ''
+      return `${indent}(function(){\n${indent}var _f=unify.createElement('form',{id:'${formId}',name:'${formId}'${submit ? ',' + submit : ''}},[\n${childrenCode}\n${indent}]);\n${indent}unify.createForm(_f,${rulesCode},{showErrors:true});\n${indent}return _f;\n${indent}})()\n`
     }
 
     case 'Import': {
@@ -680,7 +687,7 @@ function compileUix(source, options = {}) {
     .filter(([k]) => k !== 'name')
     .map(([k, v]) => {
       const val = typeof v === 'string' ? `'${v}'` : v
-      return `const _meta_${k} = ${val}`
+      return `var _meta_${k} = ${val}`
     }).join('\n')
 
   const compiledBody = compileAST(body)
@@ -688,7 +695,7 @@ function compileUix(source, options = {}) {
   meta.name = componentName
 
   return {
-    code: `// Generated by Unify v0.1.67
+    code: `// Generated by Unify v0.6.7
 ${metaVars ? metaVars + '\n' : ''}
 function ${componentName}(props = {}) {
   return unify.fragment([
@@ -705,12 +712,23 @@ ${options.exportDefault !== false ? `export default ${componentName}` : ''}
 }
 
 function compileFile(filePath, options = {}) {
-  const name = path.basename(filePath, '.uix')
-  const parsed = parseFile(filePath)
-  return compileUix(parsed, { exportDefault: false, ...options, name })
+  try {
+    if (!filePath || typeof filePath !== 'string') throw new Error('File path is required')
+    const name = path.basename(filePath, '.uix')
+    const parsed = parseFile(filePath)
+    if (!parsed || !parsed.body) throw new Error('Failed to parse file: ' + filePath)
+    return compileUix(parsed, { exportDefault: false, ...options, name })
+  } catch (err) {
+    throw new Error('Compile error in ' + (filePath || 'unknown') + ': ' + err.message)
+  }
 }
 
-function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', rawStyle = '') {
+function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', rawStyle = '', appCode = '', locales = {}) {
+  try {
+    if (!compiledCode || typeof compiledCode !== 'string') compiledCode = 'function App(){return unify.fragment([])}'
+    meta = meta || {}
+    config = config || {}
+  } catch (e) { meta = {}; config = {} }
   const title = meta.title || 'Unify App'
   const description = meta.description || 'Built with Unify'
   const lang = meta.lang || 'en'
@@ -723,10 +741,11 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
   const tailwindLink = tailwind && !production
     ? '<script src="https://cdn.tailwindcss.com"></script>'
     : tailwind && production
-      ? '' // <!-- Tailwind not loaded in production: use build step or PostCSS -->
+      ? '' 
       : ''
 
   const brutalismStyles = genCSS(primary, secondary, success, config)
+  const routerCode = generateClientRouterCode(config.outDir || 'dist')
 
   return `<!DOCTYPE html>
 <html lang="${lang}" data-theme="light">
@@ -1369,6 +1388,7 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
 
     // ---- Form Validation (Enhanced) ----
     unify.validate = (form, rules) => {
+      if (!form) return { valid: false, errors: { _form: 'Form element not found' }, show: function() {}, clear: function() {} }
       unify.hook('beforeValidate', { form: form, rules: rules })
       const errors = {}
       Object.entries(rules).forEach(([field, validators]) => {
@@ -1378,9 +1398,9 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
         const list = Array.isArray(validators) ? validators : [validators]
         list.forEach(rule => {
           if (rule === 'required' && !value.trim()) { errors[field] = 'This field is required' }
-          else if (rule === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { errors[field] = 'Invalid email address' }
-          else if (rule === 'phone' && value && !/^\+?[\d\s()-]{7,15}$/.test(value)) { errors[field] = 'Invalid phone number' }
-          else if (rule === 'url' && value && !/^https?:\/\/.+/.test(value)) { errors[field] = 'Invalid URL' }
+          else if (rule === 'email' && value && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(value)) { errors[field] = 'Invalid email address' }
+          else if (rule === 'phone' && value && !/^\\+?[\\d\\s()-]{7,15}$/.test(value)) { errors[field] = 'Invalid phone number' }
+          else if (rule === 'url' && value && !/^https?:\\/\\/.+/.test(value)) { errors[field] = 'Invalid URL' }
           else if (rule === 'number' && value && isNaN(Number(value))) { errors[field] = 'Must be a number' }
           else if (rule === 'alpha' && value && !/^[a-zA-Z]+$/.test(value)) { errors[field] = 'Letters only' }
           else if (rule === 'alphanumeric' && value && !/^[a-zA-Z0-9]+$/.test(value)) { errors[field] = 'Letters and numbers only' }
@@ -1388,7 +1408,7 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
           else if (rule.max && value.length > rule.max) { errors[field] = 'Maximum ' + rule.max + ' characters' }
           else if (rule.minVal && Number(value) < rule.minVal) { errors[field] = 'Minimum value is ' + rule.minVal }
           else if (rule.maxVal && Number(value) > rule.maxVal) { errors[field] = 'Maximum value is ' + rule.maxVal }
-          else if (rule.match && value !== form.querySelector('[name="' + rule.match + '"]').value) { errors[field] = 'Fields do not match' }
+          else if (rule.match && form && form.querySelector('[name="' + rule.match + '"]') && value !== form.querySelector('[name="' + rule.match + '"]').value) { errors[field] = 'Fields do not match' }
           else if (typeof rule === 'function') { const err = rule(value, input); if (err) errors[field] = err }
         })
       })
@@ -1463,7 +1483,7 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
       }
     }
 
-    // ---- Client-Side Router ----
+    
     unify.router = (routes, opts = {}) => {
       const outlet = document.getElementById(opts.outlet || 'app')
       function navigate(path) {
@@ -1487,90 +1507,8 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
       return { navigate, current: () => window.location.pathname }
     }
 
-    // ---- SPA Link Handler ----
-    function initSPARouter() {
-      if (window.location.protocol === 'file:') return
-      document.addEventListener('click', function(e) {
-        var link = e.target.closest('a[href]')
-        if (!link) return
-        var href = link.getAttribute('href')
-        if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('//') || href.startsWith('mailto:') || href.startsWith('tel:')) return
-        var isExternal = link.hasAttribute('target') || link.getAttribute('rel') === 'external'
-        if (isExternal) return
-        e.preventDefault()
-        var path = href.replace(/\/index\.html$/, '/').replace(/\/$/, '') || '/'
-        if (window.__spaNavigate) {
-          window.__spaNavigate(path)
-        } else {
-          window.location.href = href
-        }
-      })
-      updateActiveLinks()
-    }
-
-    function updateActiveLinks() {
-      var current = window.location.pathname.replace(/\/$/, '') || '/'
-      document.querySelectorAll('a[href]').forEach(function(a) {
-        var h = a.getAttribute('href').replace(/\/$/, '') || '/'
-        if (h === current) {
-          a.setAttribute('aria-current', 'page')
-          a.classList.add('brut-link--active')
-        } else {
-          a.removeAttribute('aria-current')
-          a.classList.remove('brut-link--active')
-        }
-      })
-    }
-
-    // ---- Static SPA Navigation ----
-    window.__spaNavigate = function(path) {
-      if (window.location.protocol === 'file:') { window.location.href = path; return }
-      var prevPath = window.location.pathname
-      history.pushState(null, '', path)
-      var fetchPath = path === '/' ? 'index.html' : path.replace(/\/$/, '') + '/index.html'
-      var app = document.getElementById('app')
-      app.style.opacity = '0'
-      app.style.transform = 'translateY(8px)'
-      app.style.transition = 'opacity 0.12s ease, transform 0.12s ease'
-      fetch(fetchPath)
-        .then(function(r) {
-          if (!r.ok) { if (r.status === 404) unify.createToast('Page not found: ' + path, { variant: 'warning', icon: 'alert-triangle', duration: 3000 }); window.__fallbackNavigate(path); throw new Error('Page not found') }
-          return r.text()
-        })
-        .then(function(html) {
-          var parser = new DOMParser()
-          var doc = parser.parseFromString(html, 'text/html')
-          var newApp = doc.getElementById('app')
-          if (newApp) {
-            app.innerHTML = newApp.innerHTML
-            window.scrollTo(0, 0)
-            requestAnimationFrame(function() {
-              app.style.opacity = '1'
-              app.style.transform = 'translateY(0)'
-              if (typeof lucide !== 'undefined') lucide.createIcons()
-              updateActiveLinks()
-            })
-          } else {
-            unify.createToast('Page format error: ' + path, { variant: 'danger', icon: 'x-circle', duration: 4000 })
-            window.__fallbackNavigate(path)
-          }
-        })
-        .catch(function() {
-          window.__fallbackNavigate(path)
-        })
-    }
-
-    window.__fallbackNavigate = function(path) {
-      var app = document.getElementById('app')
-      app.style.opacity = '1'
-      app.style.transform = 'translateY(0)'
-      window.location.href = path
-    }
-
-    window.addEventListener('popstate', function() {
-      var path = window.location.pathname
-      window.__spaNavigate(path)
-    })
+    
+    ${routerCode}
 
     unify.createElement = (tag, props, children) => {
       props = props || {}; children = children || []
@@ -1599,7 +1537,7 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
       return el
     }
 
-    // ---- Import System ----
+    
     unify.importCache = {}
     unify.importFile = (url, type) => {
       type = type || 'js'
@@ -1629,7 +1567,7 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
     unify.importModule = (url) => unify.importFile(url, 'module')
     unify.importJs = (url) => unify.importFile(url, 'js')
 
-    // ---- Server-Side Rendering ----
+    
     unify.renderToString = (component) => {
       if (typeof component === 'string') return component
       if (typeof component === 'number') return String(component)
@@ -1648,7 +1586,7 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
       return unify.renderToString(component)
     }
 
-    // ---- Database / Services ----
+    
     unify.db = {
       _stores: {},
       createStore: function(name, initial) {
@@ -1712,34 +1650,74 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
       window.__theme = next
       return next
     }
+    window.__locales = ${JSON.stringify(locales)}
+
+    function _applyLocale(lang) {
+      var t = window.__locales && window.__locales[lang]
+      if (!t) return
+      document.documentElement.setAttribute('lang', lang)
+      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr')
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n')
+        if (t[key] !== undefined) {
+          var txt = document.createTextNode(t[key])
+          el.textContent = ''
+          el.appendChild(txt)
+        }
+      })
+    }
+
     function toggleLanguage() {
       const langs = ${JSON.stringify(config.languages || ['en', 'fr', 'es'])}
       const cur = window.__lang || 'en'
       const idx = langs.indexOf(cur)
-      const next = langs[(idx + 1) % langs.length]
-      document.documentElement.setAttribute('lang', next)
+      var next = langs[(idx + 1) % langs.length]
+      _applyLocale(next)
       localStorage.setItem('unify-lang', next)
       window.__lang = next
       return next
     }
+    _applyLocale(window.__lang)
     window.toggleTheme = toggleTheme
     window.toggleLanguage = toggleLanguage
 
-    ${compiledCode.replace(/^export\s+default\s+\w+\s*$/m, '')}
+    ${(appCode ? appCode + '\n\n' : '') + compiledCode.replace(/^export\s+default\s+\w+\s*$/m, '')}
 
     ${rawScript ? `// ---- User script ----\n${rawScript}\n` : ''}
 
-    const app = document.getElementById('app')
+    var app = document.getElementById('app')
+    if (!app) {
+      app = document.createElement('div')
+      app.id = 'app'
+      document.body.appendChild(app)
+    }
     try {
-      const el = ${meta.name || 'App'}({})
-      if (el instanceof Node) app.appendChild(el)
-      if (typeof lucide !== 'undefined') lucide.createIcons()
-      initSPARouter()
-      unify.hook('onAppReady', { app: app })
-      ${config.tailwind ? `if (typeof tailwind !== 'undefined') tailwind.run()` : ''}
+      ${appCode ? `var __shell = null
+      try { __shell = App({}) } catch(e) { unify.captureError(e, 'App shell render') }
+      var __content = null
+      try { __content = ${meta.name || 'App'}({}) } catch(e) { unify.captureError(e, 'Page content render') }
+      if (__shell) {
+        var __page = __shell.querySelector && (__shell.querySelector('.brut-page') || __shell.querySelector('main') || __shell.querySelector('[data-page]'))
+        if (__page && __content) {
+          __page.innerHTML = ''
+          try {
+            if (__content instanceof Node) __page.appendChild(__content)
+            else if (__content instanceof DocumentFragment) __page.appendChild(__content)
+          } catch(e) { unify.captureError(e, 'Page content append') }
+        }
+        app.appendChild(__shell)
+      } else if (__content) {
+        app.appendChild(__content)
+      }` : `var el = null
+      try { el = ${meta.name || 'App'}({}) } catch(e) { unify.captureError(e, 'Component render') }
+      if (el instanceof Node) app.appendChild(el)`}
+      try { if (typeof lucide !== 'undefined') lucide.createIcons() } catch(e) {}
+      try { initSPARouter() } catch(e) { unify.captureError(e, 'Router init') }
+      try { unify.hook('onAppReady', { app: app }) } catch(e) {}
+      ${config.tailwind ? `try { if (typeof tailwind !== 'undefined') tailwind.run() } catch(e) {}` : ''}
     } catch(e) {
       unify.captureError(e, 'App render')
-      app.appendChild(unify.errorPage({ code: 500, message: 'Render error', description: e.message || 'Failed to render application', retry: true }))
+      try { app.appendChild(unify.errorPage({ code: 500, message: 'Render error', description: e.message || 'Failed to render application', retry: true })) } catch(e2) { app.textContent = 'Render error: ' + e.message }
     }
   </script>
 </body>
@@ -1749,7 +1727,7 @@ function compileToHTML(compiledCode, meta = {}, config = {}, rawScript = '', raw
 function genCSS(primary, secondary, success, config) {
   return `<style>
 :root {
-  --brut-bg: #f5f3ff;
+  --brut-bg: #ffffff;
   --brut-bg-alt: #ede9fe;
   --brut-surface: #ffffff;
   --brut-text: #1e1b4b;
@@ -1767,8 +1745,8 @@ function genCSS(primary, secondary, success, config) {
   --brut-radius: 12px;
   --brut-radius-sm: 8px;
   --brut-radius-lg: 16px;
-  --brut-padding: 16px;
-  --brut-gap: 1rem;
+  --brut-padding: 20px;
+  --brut-gap: 1.5rem;
   --brut-font: 'Inter', ${config.theme?.font || "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"};
   --brut-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   --brut-shadow: 6px 6px 0px var(--brut-border);
@@ -1777,16 +1755,22 @@ function genCSS(primary, secondary, success, config) {
   --brut-transition: 0.15s ease;
 }
 [data-theme="dark"] {
-  --brut-bg: #0f0d1a;
-  --brut-bg-alt: #1a1530;
-  --brut-surface: #1e1b4b;
-  --brut-text: #e0e7ff;
-  --brut-text-muted: #8b8fa3;
-  --brut-border: ${primary};
-  --brut-primary-light: ${primary};
-  --brut-shadow: 6px 6px 0px var(--brut-primary);
-  --brut-shadow-sm: 4px 4px 0px var(--brut-primary);
-  --brut-shadow-lg: 10px 10px 0px var(--brut-primary);
+  --brut-bg: #0e0e0e;
+  --brut-bg-alt: #1a1a1a;
+  --brut-surface: #1a1a1a;
+  --brut-text: #f3f4f6;
+  --brut-text-muted: #a3a3a3;
+  --brut-border: #a3a3a3;
+  --brut-primary: #a78bfa;
+  --brut-primary-light: #c4b5fd;
+  --brut-secondary: #fbbf24;
+  --brut-secondary-dark: #f59e0b;
+  --brut-success: #34d399;
+  --brut-danger: #f87171;
+  --brut-info: #a78bfa;
+  --brut-shadow: 6px 6px 0px var(--brut-border);
+  --brut-shadow-sm: 4px 4px 0px var(--brut-border);
+  --brut-shadow-lg: 10px 10px 0px var(--brut-border);
 }
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -1810,9 +1794,11 @@ a:hover { color: var(--brut-secondary-dark); }
 /* ===== LAYOUT ===== */
 .brut-page {
   animation: brutPageIn 0.25s ease;
-  max-width: 960px; margin: 0 auto; padding: 24px 16px;
+  max-width: 960px; margin: 0 auto; padding: 32px 20px;
 }
-.brut-section { padding: 2rem 0; }
+.brut-section { padding: 3rem 0; }
+.brut-hero { padding: 5rem 1rem; text-align: center; }
+.brut-feature { text-align: center; padding: 2rem; }
 .brut-container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; width: 100%; }
 .brut-wrapper { max-width: 960px; margin: 0 auto; padding: 0 1rem; width: 100%; }
 .brut-grid { display: grid; gap: var(--brut-gap); grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
@@ -1826,8 +1812,7 @@ a:hover { color: var(--brut-secondary-dark); }
   border-radius: var(--brut-radius); padding: var(--brut-padding);
   box-shadow: var(--brut-shadow-sm);
 }
-.brut-hero { padding: 4rem 1rem; text-align: center; }
-.brut-feature { text-align: center; padding: 1.5rem; }
+
 .brut-box {
   background: var(--brut-surface); border: var(--brut-border-w) solid var(--brut-border);
   border-radius: var(--brut-radius-sm); padding: var(--brut-padding);
@@ -1854,7 +1839,7 @@ a:hover { color: var(--brut-secondary-dark); }
 .brut-mark { background: var(--brut-secondary); color: var(--brut-border); padding: 0.1em 0.3em; border-radius: 4px; font-weight: 600; }
 .brut-code { background: var(--brut-bg-alt); border: 2px solid var(--brut-border); padding: 0.2em 0.4em; border-radius: 4px; font-family: var(--brut-mono); font-size: 0.9em; }
 .brut-pre { background: var(--brut-bg-alt); border: var(--brut-border-w) solid var(--brut-border); padding: 1rem; border-radius: var(--brut-radius-sm); font-family: var(--brut-mono); font-size: 0.9rem; overflow-x: auto; box-shadow: var(--brut-shadow-sm); }
-.brut-blockquote { border-left: 6px solid var(--brut-primary); padding: 1rem 1.5rem; margin: 1rem 0; background: var(--brut-bg-alt); border-radius: 0 var(--brut-radius-sm) var(--brut-radius-sm) 0; font-style: italic; font-weight: 600; box-shadow: var(--brut-shadow-sm); }
+.brut-blockquote { border-left: 6px solid var(--brut-secondary); padding: 1rem 1.5rem; margin: 1rem 0; background: var(--brut-bg-alt); border-radius: 0 var(--brut-radius-sm) var(--brut-radius-sm) 0; font-style: italic; font-weight: 600; box-shadow: var(--brut-shadow-sm); }
 .brut-kbd { background: var(--brut-border); color: var(--brut-bg); padding: 0.2em 0.5em; border-radius: 4px; font-family: var(--brut-mono); font-size: 0.85em; font-weight: 700; }
 
 /* ===== FORMS ===== */
@@ -1897,8 +1882,8 @@ a:hover { color: var(--brut-secondary-dark); }
 .brut-output { display: block; padding: 0.5rem 0; font-weight: 700; }
 .brut-progress { appearance: none; height: 12px; border-radius: 6px; border: var(--brut-border-w) solid var(--brut-border); width: 100%; background: var(--brut-surface); }
 .brut-progress::-webkit-progress-bar { background: var(--brut-surface); border-radius: 6px; }
-.brut-progress::-webkit-progress-value { background: var(--brut-primary); border-radius: 4px; }
-.brut-progress::-moz-progress-bar { background: var(--brut-primary); border-radius: 4px; }
+.brut-progress::-webkit-progress-value { background: var(--brut-success); border-radius: 4px; }
+.brut-progress::-moz-progress-bar { background: var(--brut-success); border-radius: 4px; }
 .brut-meter { appearance: none; height: 12px; border-radius: 6px; border: var(--brut-border-w) solid var(--brut-border); width: 100%; background: var(--brut-surface); }
 .brut-meter::-webkit-meter-bar { background: var(--brut-surface); border-radius: 6px; }
 .brut-meter::-webkit-meter-optimum-value { background: var(--brut-success); border-radius: 4px; }
@@ -2087,14 +2072,14 @@ a:hover { color: var(--brut-secondary-dark); }
   box-shadow: var(--brut-shadow-sm);
 }
 .brut-progress-fill {
-  height: 100%; background: var(--brut-primary);
+  height: 100%; background: var(--brut-success);
   transition: width 0.4s ease; min-width: 4px;
 }
 
 /* ===== SPINNER ===== */
 .brut-spinner {
   width: 32px; height: 32px; border: 4px solid var(--brut-bg-alt);
-  border-top-color: var(--brut-primary); border-radius: 50%;
+  border-top-color: var(--brut-secondary); border-radius: 50%;
   animation: brutSpin 0.6s linear infinite; margin: 1rem auto;
 }
 .brut-spinner--sm { width: 20px; height: 20px; border-width: 3px; }
@@ -2118,7 +2103,7 @@ a:hover { color: var(--brut-secondary-dark); }
   position: fixed; bottom: 2rem; right: 2rem; z-index: 1000;
   width: 56px; height: 56px; border-radius: var(--brut-radius-sm);
   border: var(--brut-border-w) solid var(--brut-border);
-  background: var(--brut-primary); color: #fff; font-size: 1.5rem; cursor: pointer;
+  background: var(--brut-success); color: #fff; font-size: 1.5rem; cursor: pointer;
   box-shadow: var(--brut-shadow); transition: all var(--brut-transition);
   display: flex; align-items: center; justify-content: center;
 }
@@ -2139,7 +2124,7 @@ a:hover { color: var(--brut-secondary-dark); }
 /* ===== TABLE ===== */
 .brut-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; border: var(--brut-border-w) solid var(--brut-border); }
 .brut-table th, .brut-table td { padding: 12px 16px; text-align: left; border-bottom: var(--brut-border-w) solid var(--brut-border); }
-.brut-table th { font-weight: 800; background: var(--brut-primary); color: #fff; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.brut-table th { font-weight: 800; background: var(--brut-secondary); color: var(--brut-border); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
 .brut-table tr:last-child td { border-bottom: none; }
 .brut-table tr:hover td { background: var(--brut-bg-alt); }
 
@@ -2184,7 +2169,7 @@ a:hover { color: var(--brut-secondary-dark); }
 .brut-accent-top { border-top: 6px solid var(--brut-primary) !important; }
 .brut-accent-bottom { border-bottom: 6px solid var(--brut-secondary) !important; }
 .brut-accent-left { border-left: 6px solid var(--brut-success) !important; }
-.brut-accent-right { border-right: 6px solid var(--brut-primary) !important; }
+.brut-accent-right { border-right: 6px solid var(--brut-success) !important; }
 .brut-rainbow-bottom {
   border-bottom: 6px solid;
   border-image: linear-gradient(90deg, var(--brut-primary), var(--brut-secondary), var(--brut-success)) 1;

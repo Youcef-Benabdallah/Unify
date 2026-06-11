@@ -1,0 +1,22 @@
+// App.uix — Dashboard Shell
+Meta {
+  title: "Dashboard"
+  theme: light
+  lang: en
+}
+
+App {
+  Nav {
+    brand: "Dashboard"
+    Link { href: "/"; text: "Overview" }
+    Link { href: "/analytics"; text: "Analytics" }
+    Link { href: "/settings"; text: "Settings" }
+    ThemeToggle
+    LanguageToggle
+  }
+
+  Page {
+    Header { text: "Dashboard" }
+    Text { content: "Welcome back! Here's your overview." }
+  }
+}

@@ -16,7 +16,14 @@ const DEFAULTS = {
     primary: '#7c3aed',
     secondary: '#fbbf24',
     success: '#10b981',
-    font: 'Inter, system-ui'
+    danger: '#ef4444',
+    info: '#7c3aed',
+    warning: '#fbbf24',
+    font: 'Inter, system-ui',
+    darkBg: '#0e0e0e',
+    darkSurface: '#1a1a1a',
+    darkText: '#f3f4f6',
+    darkBorder: '#a3a3a3'
   },
   languages: ['en', 'fr', 'es'],
   defaultLang: 'en',

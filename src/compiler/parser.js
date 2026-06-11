@@ -58,6 +58,12 @@ function tokenize(source) {
     if (ch === '[') { tokens.push({ type: 'BRACKET_OPEN', line, col }); col++; i++; continue }
     if (ch === ']') { tokens.push({ type: 'BRACKET_CLOSE', line, col }); col++; i++; continue }
     if (ch === ';') { tokens.push({ type: 'SEMI', line, col }); col++; i++; continue }
+    if (ch === '|') { tokens.push({ type: 'PIPE', line, col }); col++; i++; continue }
+    if (ch === '?') { tokens.push({ type: 'QUESTION', line, col }); col++; i++; continue }
+    if (ch === '&') { tokens.push({ type: 'AMPERSAND', line, col }); col++; i++; continue }
+    if (ch === '%') { tokens.push({ type: 'MODULO', line, col }); col++; i++; continue }
+    if (ch === '~') { tokens.push({ type: 'TILDE', line, col }); col++; i++; continue }
+    if (ch === '^') { tokens.push({ type: 'CARET', line, col }); col++; i++; continue }
 
     if (ch === '"' || ch === "'") {
       const quote = ch
@@ -220,7 +226,8 @@ function parse(tokens, source) {
     let prevType = null
     const PUNCT = { PAREN_OPEN: '(', PAREN_CLOSE: ')', DOT: '.', GT: '>', LT: '<',
       PLUS: '+', STAR: '*', SLASH: '/', EQ: '=', COLON: ':', COMMA: ',',
-      AT: '@', SEMI: ';', NEQ: '!=',
+      AT: '@', SEMI: ';', NEQ: '!=', PIPE: '|', QUESTION: '?', AMPERSAND: '&',
+      MODULO: '%', TILDE: '~', CARET: '^',
       BRACKET_OPEN: '[', BRACKET_CLOSE: ']' }
     const STATEMENT_KEYWORDS = new Set(['var', 'let', 'const', 'function', 'class', 'if', 'for', 'while', 'switch', 'try', 'return', 'import', 'export', 'async', 'await', 'throw', 'do'])
 

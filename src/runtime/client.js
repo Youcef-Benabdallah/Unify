@@ -119,7 +119,6 @@ function mount(component, selector = '#app') {
   return render(component, container)
 }
 
-// ---- Reactive State Management ----
 function createSignal(initial) {
   let value = initial
   const listeners = []
@@ -197,7 +196,6 @@ function reactiveComponent(renderFn, container) {
   return { el: container, render, mount: function(parent) { parent.appendChild(container); render(); return container } }
 }
 
-// ---- Error System ----
 var errorLog = []
 var errorHandlers = []
 function onError(handler) { errorHandlers.push(handler); return function() { var i = errorHandlers.indexOf(handler); if (i >= 0) errorHandlers.splice(i, 1) } }
@@ -210,7 +208,6 @@ function captureError(err, context) {
   return entry
 }
 
-// ---- Plugin System ----
 var plugins = {}
 function plugin(name, hooks) {
   if (plugins[name]) { console.warn('[Unify] Plugin "' + name + '" already registered'); return }
@@ -224,7 +221,6 @@ function hook(lifecycle, data) {
   })
 }
 
-// ---- Form Validation ----
 function validate(form, rules) {
   hook('beforeValidate', { form, rules })
   const errors = {}

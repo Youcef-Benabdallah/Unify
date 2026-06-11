@@ -1,0 +1,59 @@
+// pages/analytics.uix — Analytics
+Meta { title: "Analytics | Dashboard" }
+
+Page {
+  H1 { text: "Analytics" }
+
+  Grid {
+    Card {
+      H3 { text: "Page Views" }
+      Text { className: "brut-h1"; content: "12,438" }
+      Text { className: "brut-text--muted"; content: "+14% from last month" }
+      Div { className: "brut-divider" }
+      Text { content: "Top pages: /home, /pricing, /docs" }
+    }
+
+    Card {
+      H3 { text: "Conversion Rate" }
+      Text { className: "brut-h1"; content: "3.24%" }
+      Text { className: "brut-text--muted"; content: "+0.8% improvement" }
+      Div { className: "brut-divider" }
+      ProgressBar { value: 3.24; max: 100; label: "Conversion Rate" }
+    }
+
+    Card {
+      H3 { text: "Bounce Rate" }
+      Text { className: "brut-h1"; content: "42.1%" }
+      Text { className: "brut-text--muted"; content: "-5% from target" }
+    }
+
+    Card {
+      H3 { text: "Avg. Session" }
+      Text { className: "brut-h1"; content: "4m 32s" }
+      Text { className: "brut-text--muted"; content: "+45s improvement" }
+    }
+  }
+
+  // Data table
+  Section {
+    H2 { text: "Traffic Sources" }
+
+    Table {
+      Thead {
+        Tr {
+          Th { text: "Source" }
+          Th { text: "Visitors" }
+          Th { text: "Change" }
+          Th { text: "Status" }
+        }
+      }
+      Tbody {
+        Tr { Td { text: "Organic Search" }; Td { text: "4,832" }; Td { text: "+12%" }; Td { text: "↑" } }
+        Tr { Td { text: "Direct" }; Td { text: "3,201" }; Td { text: "+5%" }; Td { text: "↑" } }
+        Tr { Td { text: "Social Media" }; Td { text: "2,145" }; Td { text: "-2%" }; Td { text: "↓" } }
+        Tr { Td { text: "Referral" }; Td { text: "1,876" }; Td { text: "+18%" }; Td { text: "↑" } }
+        Tr { Td { text: "Email" }; Td { text: "384" }; Td { text: "+7%" }; Td { text: "↑" } }
+      }
+    }
+  }
+}

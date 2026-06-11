@@ -1,0 +1,46 @@
+// pages/settings.uix — Settings
+Meta { title: "Settings | Dashboard" }
+
+Page {
+  H1 { text: "Settings" }
+  Text { className: "brut-text--muted"; content: "Manage your account and preferences." }
+
+  Card {
+    H3 { text: "Profile" }
+    Label { text: "Full Name" }
+    Input { placeholder: "John Doe"; className: "mb-4" }
+    Label { text: "Email" }
+    Input { placeholder: "john@example.com"; type: "email"; className: "mb-4" }
+    Button { text: "Save Changes"; variant: primary; click -> saveProfile }
+  }
+
+  Card {
+    H3 { text: "Notifications" }
+    Label { text: "Email notifications" }
+    Select {
+      Option { text: "All notifications" }
+      Option { text: "Only important" }
+      Option { text: "None" }
+    }
+    Div { className: "brut-divider" }
+    Label { text: "Theme preference" }
+    Button { text: "Toggle Dark Mode"; variant: secondary; click -> toggleTheme }
+  }
+
+  Card {
+    H3 { text: "Danger Zone" }
+    Text { className: "brut-text--muted"; content: "Irreversible actions." }
+    Button { text: "Delete Account"; variant: outline; click -> confirmDelete }
+  }
+}
+
+script {
+  function saveProfile() {
+    alert("Profile saved!")
+  }
+  function confirmDelete() {
+    if (confirm("Are you sure you want to delete your account?")) {
+      alert("Account deleted.")
+    }
+  }
+}

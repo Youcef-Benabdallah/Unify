@@ -1,71 +1,119 @@
 const isWin = process.platform === 'win32'
 const noColor = process.env.NO_COLOR || !process.stdout.isTTY
 
-const c = (code) => (str) => noColor ? str : `\x1b[${code}m${str}\x1b[0m`
+function ansi(n) {
+  return (str) => noColor ? str : `\x1b[${n}m${str}\x1b[0m`
+}
+
+function rgb(r, g, b) {
+  return (str) => noColor ? str : `\x1b[38;2;${r};${g};${b}m${str}\x1b[0m`
+}
+
+function bgRgb(r, g, b) {
+  return (str) => noColor ? str : `\x1b[48;2;${r};${g};${b}m${str}\x1b[0m`
+}
 
 const colors = {
-  reset: c(0),
-  bold: c(1),
-  dim: c(2),
-  italic: c(3),
-  black: c(30),
-  red: c(31),
-  green: c(32),
-  yellow: c(33),
-  blue: c(34),
-  magenta: c(35),
-  cyan: c(36),
-  white: c(37),
-  bgBlack: c(40),
-  bgRed: c(41),
-  bgGreen: c(42),
-  bgYellow: c(43),
-  bgBlue: c(44),
-  bgMagenta: c(45),
-  bgCyan: c(46),
-  bgWhite: c(47),
-  brightRed: c(91),
-  brightGreen: c(92),
-  brightYellow: c(93),
-  brightBlue: c(94),
-  brightMagenta: c(95),
-  brightCyan: c(96),
-  brightWhite: c(97),
+  reset: ansi(0),
+  bold: ansi(1),
+  dim: ansi(2),
+  italic: ansi(3),
+
+  lavender: rgb(180, 160, 210),
+  pastelLavender: rgb(200, 180, 230),
+  pastelYellow: rgb(249, 231, 159),
+  pastelGreen: rgb(169, 223, 191),
+  pastelPink: rgb(255, 182, 193),
+  pastelBlue: rgb(174, 198, 255),
+  pastelPeach: rgb(255, 218, 185),
+  pastelMint: rgb(189, 232, 211),
+
+  white: ansi(37),
+  black: ansi(30),
+
+  bgPastelLavender: bgRgb(200, 180, 230),
+  bgPastelYellow: bgRgb(249, 231, 159),
+  bgPastelGreen: bgRgb(169, 223, 191),
 }
 
 function ok(msg) {
-  return colors.green('*') + ' ' + colors.bold(msg)
+  return colors.pastelGreen('\u2714') + ' ' + colors.bold(msg)
 }
 
 function warn(msg) {
-  return colors.yellow('!') + ' ' + msg
+  return colors.pastelYellow('\u26A0') + ' ' + msg
 }
 
 function fail(msg) {
-  return colors.red('x') + ' ' + msg
+  return colors.pastelPink('\u2718') + ' ' + msg
 }
 
 function doing(msg) {
-  return colors.cyan('.') + ' ' + msg
+  return colors.pastelLavender('\u2219') + ' ' + msg
+}
+
+function info(msg) {
+  return colors.pastelBlue('\u2139') + ' ' + msg
 }
 
 function logo() {
-  const u = colors.brightCyan
-  const n = colors.brightBlue
-  const i = colors.brightMagenta
-  const f = colors.brightGreen
-  const y = colors.brightYellow
-  console.log(`
-  ${u('██╗   ██╗')}${n('███╗   ██╗')}${i('██╗')}${f('███████╗')}${y('██╗   ██╗')}
-  ${u('██╗   ██╗')}${n('████╗  ██║')}${i('██║')}${f('██╔════╝')} ${y('╚██╗ ██╔╝')}
-  ${u('██║   ██║')}${n('██╔██╗ ██║')}${i('██║')}${f('█████╗')}   ${y(' ╚████╔╝ ')}
-  ${u('██║   ██║')}${n('██║╚██╗██║')}${i('██║')}${f('██╔══╝')}    ${y(' ╚██╔╝  ')}
-  ${u('╚██████╔╝')}${n('██║ ╚████║')}${i('██║')}${f('██║')}        ${y('  ██║   ')}
-  ${u(' ╚═════╝ ')}${n('╚═╝  ╚═══╝')}${i('╚═╝')}${f('╚═╝')}        ${y('  ╚═╝   ')}
-  ${colors.dim('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}
-  ${colors.bold('v0.1.67')} ${colors.dim('·')} ${colors.cyan('Static Site Framework')} ${colors.dim('·')} ${colors.magenta('Neu-Brutalism')} ${colors.dim('·')} ${colors.green('.uix')}
-  ${colors.dim('by Youcef Benabdallah — MIT License')}
-`)
+  const l = colors.pastelLavender
+  const y = colors.pastelYellow
+  const g = colors.pastelGreen
+  const p = colors.pastelPink
+  const b = colors.pastelBlue
+  const d = colors.dim
+  const W = 36
+  const L = '\u2551'
+  const H = '\u2550'
+  function box(content) {
+    return '  ' + l(L) + '  ' + content + ' '.repeat(Math.max(0, W - visibleLen(content))) + '  ' + l(L)
+  }
+  function visibleLen(s) {
+    return s.replace(/\x1b\[[0-9;]*m/g, '').length
+  }
+  function empty() {
+    return '  ' + l(L) + ' '.repeat(W + 4) + l(L)
+  }
+  console.log()
+  console.log('  ' + l('\u2554') + l(H.repeat(W + 4)) + l('\u2557'))
+  console.log(box(l('\u2588   \u2588') + ' ' + y('\u2588\u2588  \u2588') + ' ' + g(' \u2588\u2588\u2588 ') + ' ' + p('\u2588\u2588\u2588\u2588\u2588') + ' ' + b('\u2588   \u2588')))
+  console.log(box(l('\u2588   \u2588') + ' ' + y('\u2588 \u2588 \u2588') + ' ' + g('  \u2588  ') + ' ' + p('\u2588    ') + ' ' + b('\u2588   \u2588')))
+  console.log(box(l('\u2588   \u2588') + ' ' + y('\u2588  \u2588\u2588') + ' ' + g('  \u2588  ') + ' ' + p('\u2588\u2588\u2588\u2588 ') + ' ' + b('\u2588 \u2588 \u2588')))
+  console.log(box(l('\u2588   \u2588') + ' ' + y('\u2588   \u2588') + ' ' + g('  \u2588  ') + ' ' + p('\u2588    ') + ' ' + b(' \u2588 \u2588 ')))
+  console.log(box(l(' \u2588\u2588\u2588 ') + ' ' + y('\u2588   \u2588') + ' ' + g(' \u2588\u2588\u2588 ') + ' ' + p('\u2588    ') + ' ' + b('  \u2588  ')))
+  console.log(empty())
+  console.log(box(d('v-0.6.7')))
+  console.log(box(d('Unify')))
+  console.log(box(d('Your Framework that use')))
+  console.log(box(d('neu-brutalism design')))
+  console.log(box(d('by Youcef Benabdallah')))
+  console.log('  ' + l('\u255a') + l(H.repeat(W + 4)) + l('\u255d'))
 }
 
-module.exports = { colors, ok, warn, fail, doing, logo }
+function spinStart(text) {
+  const frames = ['\u25D0', '\u25D3', '\u25D1', '\u25D2']
+  let i = 0
+  const timer = setInterval(() => {
+    process.stdout.write('\r' + colors.pastelLavender(frames[i % frames.length]) + ' ' + colors.dim(text) + ' ')
+    i++
+  }, 120)
+  return timer
+}
+
+function spinStop(timer, msg, success = true) {
+  clearInterval(timer)
+  process.stdout.write('\r' + (success ? ok(msg) : fail(msg)) + '\n')
+}
+
+function header(text) {
+  console.log()
+  console.log('  ' + colors.pastelLavender('\u2500\u2500\u2500 ' + colors.bold(text) + ' \u2500\u2500\u2500'))
+  console.log()
+}
+
+function dimmed(text) {
+  return colors.dim(text)
+}
+
+module.exports = { colors, ok, warn, fail, doing, info, logo, spinStart, spinStop, header, dimmed }
